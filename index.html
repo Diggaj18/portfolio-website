@@ -1,0 +1,462 @@
+<!DOCTYPE html>
+<html lang="en" data-mode="day">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Diggaj Niraula — a desk, a garden and an arcade</title>
+<meta name="description" content="The personal site of Diggaj Niraula: mechanical engineer, renewable energy student in Kathmandu, and occasional builder of go-karts and momo steamers.">
+<meta name="author" content="Diggaj Niraula">
+<meta property="og:title" content="Diggaj Niraula — a desk, a garden and an arcade">
+<meta property="og:description" content="Not a résumé. A desk you can rummage through.">
+<meta property="og:type" content="website">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400..800&family=IBM+Plex+Mono:wght@400;500&family=Newsreader:ital,opsz,wght@0,6..72,300..500;1,6..72,300..500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'><circle cx='32' cy='32' r='26' fill='%23ff3d9a'/><circle cx='42' cy='26' r='18' fill='%2300a3b4' opacity='.75'/></svg>">
+
+<script>
+  /* set the ink/paper mode before first paint so nothing flashes */
+  (function () {
+    try {
+      if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        document.documentElement.dataset.mode = 'night';
+      }
+    } catch (e) {}
+  })();
+</script>
+</head>
+
+<body>
+
+<!-- the moving ink layer: overlapping riso blobs by day, a starfield by night -->
+<canvas id="bg" aria-hidden="true"></canvas>
+<div class="grain" aria-hidden="true"></div>
+
+<!-- confetti / particle overlay -->
+<canvas id="fx" aria-hidden="true"></canvas>
+
+<!-- custom cursor -->
+<div class="ring" id="ring" aria-hidden="true"><span id="ringLabel"></span></div>
+<div class="dot" id="dot" aria-hidden="true"></div>
+
+<a class="skip" href="#desk">Skip to content</a>
+
+<header class="topbar">
+  <a class="mark" href="#desk" data-cursor="home">
+    <span class="mark__ink" aria-hidden="true"></span>
+    <span class="mark__name">diggaj niraula</span>
+  </a>
+  <nav class="topnav" aria-label="Sections">
+    <a href="#desk">desk</a>
+    <a href="#garden">garden</a>
+    <a href="#workbench">workbench</a>
+    <a href="#arcade">arcade</a>
+    <a href="#letters">letters</a>
+  </nav>
+  <button class="mode" id="modeToggle" type="button" data-cursor="press" aria-pressed="false">
+    <span class="mode__label" id="modeLabel">turn the lights off</span>
+  </button>
+</header>
+
+<main>
+
+  <!-- ================= THE DESK ================= -->
+  <section class="desk" id="desk">
+    <div class="wrap">
+
+      <div class="desk__top">
+        <div class="desk__copy">
+          <p class="place">Kathmandu, Nepal. 1,400 m above the sea and rising slowly.</p>
+          <h1 class="hero">
+            <span class="hero__l1">I take machines</span>
+            <span class="hero__l2">apart to find out</span>
+            <span class="hero__l3">how they move.</span>
+          </h1>
+          <p class="lede">
+            Mechanical engineer by training, renewable-energy student by choice. I spend my
+            days measuring how much energy a building wastes, and my evenings putting
+            things back together slightly wrong.
+          </p>
+          <p class="lede lede--small">
+            This is not a résumé. It's a desk. Everything on it can be picked up and moved,
+            so please do.
+          </p>
+        </div>
+
+        <div class="desk__widgets">
+
+          <div class="tile clock">
+            <p class="tile__label">the time where I am</p>
+            <p class="clock__face"><span id="clockTime">00:00:00</span></p>
+            <p class="clock__zone">
+              <span id="clockDate">—</span>, five hours and forty-five minutes ahead of
+              Greenwich. The forty-five is not a typo.
+            </p>
+            <p class="clock__status" id="clockStatus">—</p>
+          </div>
+
+          <div class="tile tape" data-cursor="spin">
+            <p class="tile__label">on repeat this week</p>
+            <div class="tape__shell" aria-hidden="true">
+              <span class="tape__screw tape__screw--a"></span>
+              <span class="tape__screw tape__screw--b"></span>
+              <div class="tape__window">
+                <span class="reel reel--l"><i></i><i></i><i></i></span>
+                <span class="tape__ribbon"></span>
+                <span class="reel reel--r"><i></i><i></i><i></i></span>
+              </div>
+              <span class="tape__strip">side a — 45 min</span>
+            </div>
+            <p class="tape__track"><strong>Asaar</strong> by Bipul Chettri</p>
+            <p class="tape__hint">hold the cursor over the cassette and the reels turn</p>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- draggable bits and pieces -->
+      <div class="scatter" id="scatter">
+
+        <figure class="pola" data-drag data-rot="-5" style="--x:2%;  --y:8%"  data-cursor="drag">
+          <div class="pola__img pola__img--kart">
+            <svg viewBox="0 0 200 130" role="img" aria-label="Drawing of a go-kart seen from the side">
+              <g fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round">
+                <path d="M22 96h34l14-26h58l16 26h34"/>
+                <path d="M70 70l10-24h34l6 24"/>
+                <path d="M118 46l22-6"/>
+                <circle cx="46" cy="96" r="20"/>
+                <circle cx="158" cy="96" r="20"/>
+              </g>
+              <g stroke="currentColor" stroke-width="3" stroke-linecap="round" opacity=".55">
+                <path d="M8 62h20M2 78h26M12 46h14"/>
+              </g>
+            </svg>
+          </div>
+          <figcaption>the kart, 2020. it did 37 km/h before the chain came off.</figcaption>
+        </figure>
+
+        <div class="note" data-drag data-rot="3" style="--x:31%; --y:2%" data-cursor="drag">
+          <p>the ball in the arcade further down is much faster than it looks. i have never
+          cleared level four.</p>
+        </div>
+
+        <figure class="pola" data-drag data-rot="4" style="--x:56%; --y:14%" data-cursor="drag">
+          <div class="pola__img pola__img--steam">
+            <svg viewBox="0 0 200 130" role="img" aria-label="Drawing of an electric momo steamer letting off steam">
+              <g fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round">
+                <path d="M52 58h96v50a12 12 0 0 1-12 12H64a12 12 0 0 1-12-12z"/>
+                <path d="M44 58h112M88 58V44h24v14"/>
+                <path d="M52 78h96"/>
+                <path d="M148 70h14v20h-14M52 70H38v20h14"/>
+              </g>
+              <g fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" opacity=".6">
+                <path d="M82 34c-8-8 8-14 0-22M100 30c-8-8 8-14 0-22M118 34c-8-8 8-14 0-22"/>
+              </g>
+            </svg>
+          </div>
+          <figcaption>first steam, 2023. insulated, electric, and cheaper to run than gas.</figcaption>
+        </figure>
+
+        <div class="note note--yellow" data-drag data-rot="-3" style="--x:79%; --y:4%" data-cursor="drag">
+          <p>today: finish the demand model. oil the bench vice. ring home.</p>
+        </div>
+
+      </div>
+
+      <p class="scatter__hint">
+        Made a mess? <button class="linkish" id="tidyBtn" type="button" data-cursor="press">Put everything back</button>
+      </p>
+
+    </div>
+  </section>
+
+  <!-- ================= THE GARDEN ================= -->
+  <section class="garden" id="garden">
+    <div class="wrap">
+      <header class="spread">
+        <h2 class="h2">The garden</h2>
+        <p class="spread__note">
+          Projects, kept the way a garden is kept rather than the way a portfolio is: some
+          things here are years old and still going, some were planted last month and may
+          not survive the winter.
+        </p>
+      </header>
+
+      <ul class="beds">
+
+        <li class="bed" data-stage="3">
+          <div class="bed__stake" aria-hidden="true">
+            <svg viewBox="0 0 40 60"><use href="#sprout"/></svg>
+          </div>
+          <div class="bed__body">
+            <h3>An electric momo steamer</h3>
+            <p class="bed__when">Designed, welded and tested across 2023 and 2024</p>
+            <p>
+              A steamer that loses less heat than the one in every kitchen I grew up around.
+              I insulated the body, moved it from gas to electricity, and measured how much
+              steam was escaping before and after. It cooks the same. It costs less to run.
+              That is the whole argument for electric cooking in one pot.
+            </p>
+            <p class="bed__tags"><span>thermal design</span><span>fabrication</span><span>electric cooking</span></p>
+          </div>
+          <p class="bed__stagelabel">still growing well</p>
+        </li>
+
+        <li class="bed" data-stage="3">
+          <div class="bed__stake" aria-hidden="true">
+            <svg viewBox="0 0 40 60"><use href="#sprout"/></svg>
+          </div>
+          <div class="bed__body">
+            <h3>A go-kart built around a 98cc engine</h3>
+            <p class="bed__when">Built between 2019 and 2020</p>
+            <p>
+              Four of us, one two-stroke engine, and a workshop floor. We built the frame,
+              broke it, measured why, and built it again until the thing would hold together
+              at 37 km/h. I learned more about tolerances from that chain than from any
+              exam I have ever sat.
+            </p>
+            <p class="bed__tags"><span>machine design</span><span>fabrication</span><span>testing</span></p>
+          </div>
+          <p class="bed__stagelabel">still growing well</p>
+        </li>
+
+        <li class="bed" data-stage="2">
+          <div class="bed__stake" aria-hidden="true">
+            <svg viewBox="0 0 40 60"><use href="#sprout"/></svg>
+          </div>
+          <div class="bed__body">
+            <h3>Energy plans for towns that don't have one yet</h3>
+            <p class="bed__when">Ongoing since 2024, at Multiscope Solution</p>
+            <p>
+              Municipal energy planning is mostly walking around asking people what they
+              burn and when. Then it becomes a demand assessment, then a spreadsheet, then
+              a set of measures a mayor can actually sign off on. I also run audits of
+              buildings and factories, which is the same job at a smaller scale.
+            </p>
+            <p class="bed__tags"><span>energy audits</span><span>demand assessment</span><span>municipal planning</span></p>
+          </div>
+          <p class="bed__stagelabel">tended weekly</p>
+        </li>
+
+        <li class="bed" data-stage="2">
+          <div class="bed__stake" aria-hidden="true">
+            <svg viewBox="0 0 40 60"><use href="#sprout"/></svg>
+          </div>
+          <div class="bed__body">
+            <h3>What a tonne of carbon should cost in Nepal</h3>
+            <p class="bed__when">Research and documentation support, UNDP-supported work</p>
+            <p>
+              Desk research and drafting for a national carbon pricing policy. The
+              engineering question is easy compared with the political one, which is who
+              pays, how much, and what happens to the money afterwards.
+            </p>
+            <p class="bed__tags"><span>carbon pricing</span><span>policy research</span><span>drafting</span></p>
+          </div>
+          <p class="bed__stagelabel">tended weekly</p>
+        </li>
+
+        <li class="bed" data-stage="1">
+          <div class="bed__stake" aria-hidden="true">
+            <svg viewBox="0 0 40 60"><use href="#sprout"/></svg>
+          </div>
+          <div class="bed__body">
+            <h3>A sculpture made of dead gearboxes</h3>
+            <p class="bed__when">February 2024, and whenever the scrap pile gets tall</p>
+            <p>
+              Chains, gears and bearings that were already rubbish, welded into something
+              that was not. It won the audience vote, which I maintain is the only prize
+              that counts. There is a second one half-finished under my bed.
+            </p>
+            <p class="bed__tags"><span>junk art</span><span>welding</span><span>unfinished</span></p>
+          </div>
+          <p class="bed__stagelabel">newly planted</p>
+        </li>
+
+      </ul>
+    </div>
+  </section>
+
+  <!-- ================= THE WORKBENCH ================= -->
+  <section class="workbench" id="workbench">
+    <div class="wrap">
+      <header class="spread">
+        <h2 class="h2">The workbench</h2>
+        <p class="spread__note">Where the hours have actually gone, most recent first.</p>
+      </header>
+
+      <ol class="log">
+        <li class="log__row">
+          <p class="log__when"><span>2024</span><span class="log__rule" aria-hidden="true"></span><span>now</span></p>
+          <div class="log__what">
+            <h3>Energy, sustainability and programme support</h3>
+            <p class="log__where">Multiscope Solution Private Limited, Kathmandu</p>
+            <p>
+              Municipal energy plans from data collection through to demand assessment.
+              Energy audits in commercial, residential and industrial buildings.
+              Documentation and research for UNDP-supported national carbon pricing work,
+              plus the reports, slides and stakeholder chasing that surrounds all of it.
+            </p>
+          </div>
+        </li>
+
+        <li class="log__row">
+          <p class="log__when"><span>Jul</span><span class="log__rule" aria-hidden="true"></span><span>Aug 2024</span></p>
+          <div class="log__what">
+            <h3>Field trainer</h3>
+            <p class="log__where">Machine Hub Nepal, Nijgadh, Bara</p>
+            <p>
+              Seven days teaching machine operation, repair and maintenance to people
+              running a local banana-fibre fabric enterprise, under a UNDP project. The
+              hard part was not the machines. It was turning a maintenance procedure into
+              instructions that survive being read at six in the morning.
+            </p>
+          </div>
+        </li>
+
+        <li class="log__row">
+          <p class="log__when"><span>Jun</span><span class="log__rule" aria-hidden="true"></span><span>Jul 2023</span></p>
+          <div class="log__what">
+            <h3>Mechanical intern</h3>
+            <p class="log__where">Heavy Equipment Division, Minbhawan, Kathmandu</p>
+            <p>
+              Servicing motorcycles and four-wheelers, and taking four-stroke engines apart
+              and putting them back together until it stopped being frightening.
+            </p>
+          </div>
+        </li>
+      </ol>
+
+      <div class="shelf">
+        <div class="shelf__col">
+          <h3 class="shelf__head">Schooling</h3>
+          <p><strong>MSc, Renewable Energy Engineering.</strong> Pulchowk Campus, Institute of
+          Engineering, Tribhuvan University. Final year, currently.</p>
+          <p><strong>BE, Mechanical Engineering.</strong> Thapathali Campus, Institute of
+          Engineering, Tribhuvan University. Finished 2024 with 81.6 per cent, which in Nepal
+          is better than it sounds.</p>
+        </div>
+        <div class="shelf__col">
+          <h3 class="shelf__head">Things I once won</h3>
+          <p><strong>Auto-Mech exhibition, 2022.</strong> For explaining a differential
+          mechanism and then making it work in front of people.</p>
+          <p><strong>SolidWorks workshop, 2022.</strong> Thirteen days of turning flat
+          drawings into solids against a clock.</p>
+          <p><strong>Junk-art, popular choice, 2024.</strong> The gearbox sculpture above.</p>
+          <p><strong>LOCUS hardware fellowship.</strong> Arduino, breadboards, and a great
+          deal of solder.</p>
+        </div>
+        <div class="shelf__col">
+          <h3 class="shelf__head">What I reach for</h3>
+          <p>SolidWorks and AutoCAD for anything with a dimension on it. Excel for everything
+          else, which is most things. Word and PowerPoint, because a measurement nobody reads
+          may as well not have been taken.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= THE ARCADE ================= -->
+  <section class="arcade" id="arcade">
+    <div class="wrap">
+      <header class="spread">
+        <h2 class="h2">The arcade</h2>
+        <p class="spread__note">
+          Somebody has to keep the bricks down. Drag, or use the arrow keys, to move the
+          paddle. Tap the screen or press the space bar to launch, and again to pause.
+        </p>
+      </header>
+
+      <div class="crt">
+        <div class="crt__bar">
+          <span class="crt__lamps" aria-hidden="true"><i></i><i></i><i></i></span>
+          <span class="crt__title">brickbreaker.exe</span>
+          <span class="crt__badge">mk ii</span>
+        </div>
+
+        <div class="crt__hud">
+          <p class="hud__item">score <strong id="gScore">0</strong></p>
+          <p class="hud__item">level <strong id="gLevel">1</strong></p>
+          <p class="hud__item">best <strong id="gBest">0</strong></p>
+          <p class="hud__item hud__item--lives">lives <span class="lives" id="gLives" aria-label="Lives remaining"></span></p>
+        </div>
+
+        <div class="crt__screen">
+          <canvas id="game" width="640" height="420" tabindex="0"
+                  aria-label="Brick breaker. Move the paddle with the arrow keys and launch with the space bar."></canvas>
+        </div>
+
+        <div class="crt__controls">
+          <button class="btn" id="gStart" type="button" data-cursor="press">Start</button>
+          <button class="btn btn--quiet" id="gPause" type="button" data-cursor="press">Pause</button>
+          <button class="btn btn--quiet" id="gReset" type="button" data-cursor="press">Restart</button>
+          <p class="crt__keys">the best score resets when you close the tab. that is on purpose.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= LETTERS ================= -->
+  <section class="letters" id="letters">
+    <div class="wrap">
+     <div class="letters__inner">
+      <h2 class="h2 h2--big">Write to me</h2>
+      <p class="letters__lede">
+        No contact form. Forms go into a database and die there. This is an address, and I
+        read everything that arrives at it, usually late at night.
+      </p>
+      <ul class="addresses">
+        <li>
+          <a href="mailto:diggajniraula360@gmail.com" data-cursor="open">
+            <span class="addresses__what">by post</span>
+            <span class="addresses__val">diggajniraula360@gmail.com</span>
+          </a>
+        </li>
+        <li>
+          <a href="https://www.linkedin.com/in/diggaj-niraula18/" target="_blank" rel="noopener" data-cursor="open">
+            <span class="addresses__what">for the formal version of me</span>
+            <span class="addresses__val">linkedin.com/in/diggaj-niraula18</span>
+          </a>
+        </li>
+      </ul>
+      <p class="letters__ps">
+        I am generally up for talking about energy audits, anything with a gearbox in it,
+        and whether a carbon tax can work in a country that already taxes fuel four ways.
+      </p>
+     </div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="foot">
+  <div class="wrap foot__inner">
+    <p>Built by hand in a text editor. No frameworks, no tracking, no cookie banner to dismiss.</p>
+    <p>© <span id="year">2026</span> Diggaj Niraula, Kathmandu</p>
+  </div>
+</footer>
+
+<!-- the button you should not press -->
+<div class="egg">
+  <button class="egg__btn" id="eggBtn" type="button" data-cursor="press">do not press</button>
+  <button class="egg__undo" id="eggUndo" type="button" hidden data-cursor="press">put the page back together</button>
+</div>
+
+<!-- shared drawings -->
+<svg class="defs" aria-hidden="true" focusable="false">
+  <defs>
+    <symbol id="sprout" viewBox="0 0 40 60">
+      <g fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round">
+        <path class="sprout__stem" d="M20 58V22"/>
+        <path class="sprout__leafL" d="M20 46c-11 0-15-7-15-14 9-1 15 5 15 14z"/>
+        <path class="sprout__leafR" d="M20 36c10 0 14-6 14-13-9-1-14 4-14 13z"/>
+        <path class="sprout__bud" d="M20 21a6 6 0 1 1 .1 0z"/>
+      </g>
+    </symbol>
+  </defs>
+</svg>
+
+<script src="script.js"></script>
+</body>
+</html>
