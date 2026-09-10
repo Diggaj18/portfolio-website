@@ -529,18 +529,22 @@ strong { font-weight: 500; }
       }
       
       
-      /* GO-KART REAL PHOTO */
+      /* GO-KART PHOTO */
       .pola__img--kart {
-        overflow: hidden;
+        height: 151px;
+        padding: 14px 8px;
+      
         background: color-mix(in srgb, var(--aqua) 12%, transparent);
+        overflow: hidden;
       }
       
       .pola__img--kart img {
         display: block;
+      
         width: 100%;
-        height: auto;
-        aspect-ratio: 200 / 130;
-        object-fit: cover;
+        height: 100%;
+      
+        object-fit: contain;
         object-position: center;
       
         pointer-events: none;
@@ -549,21 +553,18 @@ strong { font-weight: 500; }
       }
       
       
-      /* MOMO STEAMER - KEEP AS IT IS */
+      /* MOMO STEAMER */
       .pola__img--steam {
         color: var(--pink);
         background: color-mix(in srgb, var(--pink) 12%, transparent);
       }
       
-      
-      /* SVG RULE - KEEP THIS FOR THE MOMO STEAMER */
       .pola__img svg {
         width: 100%;
         height: auto;
       }
       
       
-      /* CAPTION */
       .pola figcaption {
         padding: 12px 2px 16px;
         font-size: var(--f-xs);
