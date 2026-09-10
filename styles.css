@@ -491,64 +491,111 @@ strong { font-weight: 500; }
 /* -------------------------------------------------------------
    draggable scatter
    ------------------------------------------------------------- */
-.scatter {
-  position: relative;
-  height: 330px;
-  margin-top: clamp(28px, 5vw, 56px);
-  touch-action: none;
-}
 
-.pola, .note {
-  position: absolute;
-  left: var(--x);
-  top: var(--y);
-  z-index: 2;
-  cursor: grab;
-  user-select: none;
-  -webkit-user-select: none;
-  will-change: transform;
-}
-.pola.is-dragging, .note.is-dragging { cursor: grabbing; }
-
-.pola {
-  width: 232px;
-  padding: 13px 13px 0;
-  background: var(--stock);
-  border: 1.5px solid var(--ink);
-}
-.pola__img {
-  display: grid;
-  place-items: center;
-  padding: 14px 8px;
-  border: 1px solid var(--rule);
-}
-.pola__img--kart  { color: var(--aqua); background: color-mix(in srgb, var(--aqua) 12%, transparent); }
-.pola__img--steam { color: var(--pink); background: color-mix(in srgb, var(--pink) 12%, transparent); }
-.pola__img svg { width: 100%; height: auto; }
-.pola figcaption {
-  padding: 12px 2px 16px;
-  font-size: var(--f-xs);
-  line-height: 1.45;
-  font-style: italic;
-  color: var(--ink-soft);
-}
-
-.note {
-  width: 196px;
-  padding: 18px 18px 22px;
-  background: var(--pink);
-  color: var(--ink);
-}
-.note--yellow { background: var(--sun); }
-.note p { font-size: var(--f-sm); line-height: 1.5; }
-
-.scatter__hint {
-  margin-top: 10px;
-  font-size: var(--f-sm);
-  color: var(--ink-soft);
-  font-style: italic;
-}
-
+      .scatter {
+        position: relative;
+        height: 330px;
+        margin-top: clamp(28px, 5vw, 56px);
+        touch-action: none;
+      }
+      
+      .pola, .note {
+        position: absolute;
+        left: var(--x);
+        top: var(--y);
+        z-index: 2;
+        cursor: grab;
+        user-select: none;
+        -webkit-user-select: none;
+        will-change: transform;
+      }
+      
+      .pola.is-dragging, .note.is-dragging {
+        cursor: grabbing;
+      }
+      
+      .pola {
+        width: 232px;
+        padding: 13px 13px 0;
+        background: var(--stock);
+        border: 1.5px solid var(--ink);
+      }
+      
+      .pola__img {
+        display: grid;
+        place-items: center;
+        padding: 14px 8px;
+        border: 1px solid var(--rule);
+      }
+      
+      
+      /* GO-KART REAL PHOTO */
+      .pola__img--kart {
+        overflow: hidden;
+        background: color-mix(in srgb, var(--aqua) 12%, transparent);
+      }
+      
+      .pola__img--kart img {
+        display: block;
+        width: 100%;
+        height: auto;
+        aspect-ratio: 200 / 130;
+        object-fit: cover;
+        object-position: center;
+      
+        pointer-events: none;
+        user-select: none;
+        -webkit-user-drag: none;
+      }
+      
+      
+      /* MOMO STEAMER - KEEP AS IT IS */
+      .pola__img--steam {
+        color: var(--pink);
+        background: color-mix(in srgb, var(--pink) 12%, transparent);
+      }
+      
+      
+      /* SVG RULE - KEEP THIS FOR THE MOMO STEAMER */
+      .pola__img svg {
+        width: 100%;
+        height: auto;
+      }
+      
+      
+      /* CAPTION */
+      .pola figcaption {
+        padding: 12px 2px 16px;
+        font-size: var(--f-xs);
+        line-height: 1.45;
+        font-style: italic;
+        color: var(--ink-soft);
+      }
+      
+      
+      .note {
+        width: 196px;
+        padding: 18px 18px 22px;
+        background: var(--pink);
+        color: var(--ink);
+      }
+      
+      .note--yellow {
+        background: var(--sun);
+      }
+      
+      .note p {
+        font-size: var(--f-sm);
+        line-height: 1.5;
+      }
+      
+      
+      .scatter__hint {
+        margin-top: 10px;
+        font-size: var(--f-sm);
+        color: var(--ink-soft);
+        font-style: italic;
+      }
 /* -------------------------------------------------------------
    the garden
    ------------------------------------------------------------- */
