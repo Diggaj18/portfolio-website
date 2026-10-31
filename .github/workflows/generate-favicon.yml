@@ -1,0 +1,35 @@
+name: Generate Google-compatible portrait favicon
+on:
+  push:
+    paths:
+      - ".github/workflows/generate-favicon.yml"
+permissions:
+  contents: write
+jobs:
+  favicon:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install Pillow
+        run: python -m pip install Pillow
+      - name: Create a square PNG from the existing portrait
+        run: |
+          python - <<'PY'
+          from PIL import Image
+          im = Image.open('assets/potrait.jpg').convert('RGB')
+          w, h = im.size
+          # Portrait photo: crop centered on face and upper shoulders
+          box = (int(w*0.16), int(h*0.335), int(w*0.54), int(h*0.335)+int(w*0.38))
+          face = im.crop(box).resize((96,96),Image.Resampling.LANCZOS)
+          face.save('assets/favicon.png',optimize=True)
+          PY
+      - name: Commit generated favicon
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add assets/favicon.png
+          git commit -m "Add 96px square portrait favicon for Google Search" || exit 0
+          git push
