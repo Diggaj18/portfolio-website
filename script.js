@@ -1,4 +1,4 @@
-* =========================================================
+/* =========================================================
    Diggaj Niraula — portfolio
    1. helpers            5. terrain scene (three.js)
    2. image placeholders 6. plate tilt
@@ -100,6 +100,8 @@
 
   function placeholderURI(label, w, h) {
     w = w || 1200; h = h || 800;
+    var escapeChars = { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' };
+    label = String(label).replace(/[&<>"']/g, function (ch) { return escapeChars[ch]; });
     var big = Math.max(13, Math.round(w / 32));
     var small = Math.max(11, Math.round(w / 46));
     var svg =
