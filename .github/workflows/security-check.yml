@@ -1,0 +1,21 @@
+name: Static site security checks
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  static-security:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - name: Verify JavaScript syntax
+        run: node --check script.js
+      - name: Check content policy and tracked files
+        run: node scripts/security-check.mjs
